@@ -1,0 +1,25 @@
+// Промежуточная таблица для связи заказов и кусков пиццы (many-to-many)
+model OrderSlices {
+  id String @id @default(cuid())
+
+  // Связь к заказу
+  orderId String
+  order   Orders @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  // Связь к куску пиццы
+  sliceId String
+  slice   Slices @relation(fields: [sliceId], references: [id])
+
+  // Количество этого куска в заказе
+  quantity Int @default(1)
+
+  // Цена за один кусок в момент покупки (может отличаться от текущей цены)
+  priceAtPurchase Float @map("price_at_purchase")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Уникальный индекс: в одном заказе не может быть два одинаковых куска
+  @@unique([orderId, sliceId])
+  @@map("order_slices")
+}
