@@ -11,7 +11,7 @@ export class CreateSlicesDto {
     price: number;
 
     @IsString()
-    imageUrl: string;
+    image: File | null;
 }
 
 export type UpdateSlicesDto = Partial<CreateSlicesDto>;

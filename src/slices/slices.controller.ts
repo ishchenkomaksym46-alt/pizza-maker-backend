@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Post, Put, Query} from '@nestjs/common';
+import {BadRequestException, Body, Controller, Delete, Get, Post, Put, Query} from '@nestjs/common';
 import { SlicesService } from './slices.service';
 import {CreateSlicesDto} from "../types/slices.dto";
 import type {UpdateSlicesDto} from "../types/slices.dto";
@@ -14,6 +14,10 @@ export class SlicesController {
 
   @Post('create')
   createSlice(@Body() dto: CreateSlicesDto) {
+    if(!dto) {
+      throw new BadRequestException('Invalid data');
+    }
+
     return this.slicesService.createSlice(dto);
   }
 
