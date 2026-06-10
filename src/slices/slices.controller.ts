@@ -1,7 +1,19 @@
-import {BadRequestException, Body, Controller, Delete, Get, Post, Put, Query} from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Query,
+  UploadedFile,
+  UseInterceptors
+} from '@nestjs/common';
 import { SlicesService } from './slices.service';
 import {CreateSlicesDto} from "../types/slices.dto";
 import type {UpdateSlicesDto} from "../types/slices.dto";
+import {FileInterceptor} from "@nestjs/platform-express";
 
 @Controller('slices')
 export class SlicesController {
@@ -12,13 +24,14 @@ export class SlicesController {
     return this.slicesService.getAllSlices();
   }
 
+  @UseInterceptors(FileInterceptor('image'))
   @Post('create')
-  createSlice(@Body() dto: CreateSlicesDto) {
-    if(!dto) {
+  createSlice(@Body() dto: CreateSlicesDto, @UploadedFile() file: Express.Multer.File) {
+    if(!dto || !file) {
       throw new BadRequestException('Invalid data');
     }
 
-    return this.slicesService.createSlice(dto);
+    return this.slicesService.createSlice(dto, file);
   }
 
   @Put('update')

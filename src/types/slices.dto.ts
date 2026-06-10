@@ -7,11 +7,8 @@ export class CreateSlicesDto {
     @IsString()
     description: string;
 
-    @IsNumber()
-    price: number;
-
     @IsString()
-    imageUrl: string;
+    price: string;
 }
 
 export type UpdateSlicesDto = Partial<CreateSlicesDto>;

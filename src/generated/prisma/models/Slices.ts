@@ -20,25 +20,15 @@ export type SlicesModel = runtime.Types.Result.DefaultSelection<Prisma.$SlicesPa
 
 export type AggregateSlices = {
   _count: SlicesCountAggregateOutputType | null
-  _avg: SlicesAvgAggregateOutputType | null
-  _sum: SlicesSumAggregateOutputType | null
   _min: SlicesMinAggregateOutputType | null
   _max: SlicesMaxAggregateOutputType | null
-}
-
-export type SlicesAvgAggregateOutputType = {
-  price: number | null
-}
-
-export type SlicesSumAggregateOutputType = {
-  price: number | null
 }
 
 export type SlicesMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  price: number | null
+  price: string | null
   imageUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -48,7 +38,7 @@ export type SlicesMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  price: number | null
+  price: string | null
   imageUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -65,14 +55,6 @@ export type SlicesCountAggregateOutputType = {
   _all: number
 }
 
-
-export type SlicesAvgAggregateInputType = {
-  price?: true
-}
-
-export type SlicesSumAggregateInputType = {
-  price?: true
-}
 
 export type SlicesMinAggregateInputType = {
   id?: true
@@ -143,18 +125,6 @@ export type SlicesAggregateArgs<ExtArgs extends runtime.Types.Extensions.Interna
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: SlicesAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: SlicesSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: SlicesMinAggregateInputType
@@ -185,8 +155,6 @@ export type SlicesGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   _count?: SlicesCountAggregateInputType | true
-  _avg?: SlicesAvgAggregateInputType
-  _sum?: SlicesSumAggregateInputType
   _min?: SlicesMinAggregateInputType
   _max?: SlicesMaxAggregateInputType
 }
@@ -195,13 +163,11 @@ export type SlicesGroupByOutputType = {
   id: string
   name: string
   description: string
-  price: number
-  imageUrl: string
+  price: string
+  imageUrl: string | null
   createdAt: Date
   updatedAt: Date
   _count: SlicesCountAggregateOutputType | null
-  _avg: SlicesAvgAggregateOutputType | null
-  _sum: SlicesSumAggregateOutputType | null
   _min: SlicesMinAggregateOutputType | null
   _max: SlicesMaxAggregateOutputType | null
 }
@@ -228,8 +194,8 @@ export type SlicesWhereInput = {
   id?: Prisma.StringFilter<"Slices"> | string
   name?: Prisma.StringFilter<"Slices"> | string
   description?: Prisma.StringFilter<"Slices"> | string
-  price?: Prisma.FloatFilter<"Slices"> | number
-  imageUrl?: Prisma.StringFilter<"Slices"> | string
+  price?: Prisma.StringFilter<"Slices"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Slices"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Slices"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Slices"> | Date | string
   orderSlices?: Prisma.OrderSlicesListRelationFilter
@@ -240,7 +206,7 @@ export type SlicesOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   orderSlices?: Prisma.OrderSlicesOrderByRelationAggregateInput
@@ -253,8 +219,8 @@ export type SlicesWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SlicesWhereInput | Prisma.SlicesWhereInput[]
   name?: Prisma.StringFilter<"Slices"> | string
   description?: Prisma.StringFilter<"Slices"> | string
-  price?: Prisma.FloatFilter<"Slices"> | number
-  imageUrl?: Prisma.StringFilter<"Slices"> | string
+  price?: Prisma.StringFilter<"Slices"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Slices"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Slices"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Slices"> | Date | string
   orderSlices?: Prisma.OrderSlicesListRelationFilter
@@ -265,14 +231,12 @@ export type SlicesOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SlicesCountOrderByAggregateInput
-  _avg?: Prisma.SlicesAvgOrderByAggregateInput
   _max?: Prisma.SlicesMaxOrderByAggregateInput
   _min?: Prisma.SlicesMinOrderByAggregateInput
-  _sum?: Prisma.SlicesSumOrderByAggregateInput
 }
 
 export type SlicesScalarWhereWithAggregatesInput = {
@@ -282,8 +246,8 @@ export type SlicesScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Slices"> | string
   name?: Prisma.StringWithAggregatesFilter<"Slices"> | string
   description?: Prisma.StringWithAggregatesFilter<"Slices"> | string
-  price?: Prisma.FloatWithAggregatesFilter<"Slices"> | number
-  imageUrl?: Prisma.StringWithAggregatesFilter<"Slices"> | string
+  price?: Prisma.StringWithAggregatesFilter<"Slices"> | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Slices"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Slices"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Slices"> | Date | string
 }
@@ -292,8 +256,8 @@ export type SlicesCreateInput = {
   id?: string
   name: string
   description: string
-  price: number
-  imageUrl: string
+  price: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderSlices?: Prisma.OrderSlicesCreateNestedManyWithoutSliceInput
@@ -303,8 +267,8 @@ export type SlicesUncheckedCreateInput = {
   id?: string
   name: string
   description: string
-  price: number
-  imageUrl: string
+  price: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderSlices?: Prisma.OrderSlicesUncheckedCreateNestedManyWithoutSliceInput
@@ -314,8 +278,8 @@ export type SlicesUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderSlices?: Prisma.OrderSlicesUpdateManyWithoutSliceNestedInput
@@ -325,8 +289,8 @@ export type SlicesUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderSlices?: Prisma.OrderSlicesUncheckedUpdateManyWithoutSliceNestedInput
@@ -336,8 +300,8 @@ export type SlicesCreateManyInput = {
   id?: string
   name: string
   description: string
-  price: number
-  imageUrl: string
+  price: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -346,8 +310,8 @@ export type SlicesUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -356,8 +320,8 @@ export type SlicesUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -375,10 +339,6 @@ export type SlicesCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type SlicesAvgOrderByAggregateInput = {
-  price?: Prisma.SortOrder
 }
 
 export type SlicesMaxOrderByAggregateInput = {
@@ -401,10 +361,6 @@ export type SlicesMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type SlicesSumOrderByAggregateInput = {
-  price?: Prisma.SortOrder
-}
-
 export type SlicesCreateNestedOneWithoutOrderSlicesInput = {
   create?: Prisma.XOR<Prisma.SlicesCreateWithoutOrderSlicesInput, Prisma.SlicesUncheckedCreateWithoutOrderSlicesInput>
   connectOrCreate?: Prisma.SlicesCreateOrConnectWithoutOrderSlicesInput
@@ -419,12 +375,16 @@ export type SlicesUpdateOneRequiredWithoutOrderSlicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SlicesUpdateToOneWithWhereWithoutOrderSlicesInput, Prisma.SlicesUpdateWithoutOrderSlicesInput>, Prisma.SlicesUncheckedUpdateWithoutOrderSlicesInput>
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type SlicesCreateWithoutOrderSlicesInput = {
   id?: string
   name: string
   description: string
-  price: number
-  imageUrl: string
+  price: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -433,8 +393,8 @@ export type SlicesUncheckedCreateWithoutOrderSlicesInput = {
   id?: string
   name: string
   description: string
-  price: number
-  imageUrl: string
+  price: string
+  imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -459,8 +419,8 @@ export type SlicesUpdateWithoutOrderSlicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -469,8 +429,8 @@ export type SlicesUncheckedUpdateWithoutOrderSlicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  price?: Prisma.FloatFieldUpdateOperationsInput | number
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -565,8 +525,8 @@ export type $SlicesPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     id: string
     name: string
     description: string
-    price: number
-    imageUrl: string
+    price: string
+    imageUrl: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["slices"]>
@@ -996,7 +956,7 @@ export interface SlicesFieldRefs {
   readonly id: Prisma.FieldRef<"Slices", 'String'>
   readonly name: Prisma.FieldRef<"Slices", 'String'>
   readonly description: Prisma.FieldRef<"Slices", 'String'>
-  readonly price: Prisma.FieldRef<"Slices", 'Float'>
+  readonly price: Prisma.FieldRef<"Slices", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Slices", 'String'>
   readonly createdAt: Prisma.FieldRef<"Slices", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Slices", 'DateTime'>
