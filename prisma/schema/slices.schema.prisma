@@ -1,0 +1,17 @@
+model Slices {
+  id String @id @default(cuid())
+
+  name        String
+  description String
+  price       Float
+
+  imageUrl String
+
+  // Связь к заказам через промежуточную таблицу
+  orderSlices OrderSlices[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("slices")
+}

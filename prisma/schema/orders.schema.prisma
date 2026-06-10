@@ -1,0 +1,18 @@
+model Orders {
+  id String @id @default(cuid())
+
+  userId String
+  user   Users  @relation(fields: [userId], references: [id])
+
+  // Связь к кускам пиццы через промежуточную таблицу
+  orderSlices OrderSlices[]
+
+  address    String
+  totalPrice Float
+  status     String @default("pending") // pending, processing, delivered, cancelled
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("orders")
+}
